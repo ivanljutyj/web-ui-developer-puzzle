@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { debounceTime, distinctUntilChanged, tap, switchMap } from 'rxjs/operators';
 import {
   addToReadingList,
   clearSearch,
@@ -24,7 +25,7 @@ export class BookSearchComponent implements OnInit {
 
   constructor(
     private readonly store: Store,
-    private readonly fb: FormBuilder
+    private readonly fb: FormBuilder,
   ) {}
 
   get searchTerm(): string {
@@ -35,6 +36,12 @@ export class BookSearchComponent implements OnInit {
     this.store.select(getAllBooks).subscribe(books => {
       this.books = books;
     });
+
+    this.searchForm.valueChanges.pipe(
+      debounceTime(500),
+      distinctUntilChanged(),
+      tap(() => this.searchBooks())
+    ).subscribe()
   }
 
   formatDate(date: void | string) {
