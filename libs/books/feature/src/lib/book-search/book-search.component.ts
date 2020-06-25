@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { debounceTime, distinctUntilChanged, tap, switchMap } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 import {
   addToReadingList,
   clearSearch,
@@ -25,7 +25,7 @@ export class BookSearchComponent implements OnInit {
 
   constructor(
     private readonly store: Store,
-    private readonly fb: FormBuilder,
+    private readonly fb: FormBuilder
   ) {}
 
   get searchTerm(): string {
