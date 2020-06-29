@@ -32,12 +32,21 @@
           <p [innerHTML]="b.description"></p>
           <div>
             <button
+              *ngIf="!b.finished"
               mat-flat-button
               color="primary"
               (click)="addBookToReadingList(b)"
               [disabled]="b.isAdded"
             >
               Want to Read
+            </button>
+            <button
+              *ngIf="b.finished"
+              [disabled]="b.finished"
+              mat-flat-button
+              color="primary"
+            >
+            Finished
             </button>
           </div>
         </div>
