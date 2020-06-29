@@ -8,8 +8,11 @@
       <div class="reading-list-item--details--author">
         {{ b.authors.join(',') }}
       </div>
+      <div class="reading-list-item--details-status" *ngIf="b.finished">
+        <small>Finished on {{ b.finishedDate | date:'longDate' }}</small>
+      </div>
     </div>
-    <div>
+    <div class="reading-list-actions">
       <button
         mat-icon-button
         color="warn"
@@ -17,6 +20,28 @@
         (click)="removeFromReadingList(b)"
       >
         <mat-icon>remove_circle</mat-icon>
+      </button>
+      <button
+        id="mark-as-read"
+        *ngIf="!b.finished"
+        mat-icon-button
+        color="primary"
+        [attr.title]="'Mark' + b.title + ' as read.'"
+        [attr.aria-label]="'Mark' + b.title + ' as read.'"
+        (click)="markAsRead(b)"
+      >
+        <mat-icon>check_circle</mat-icon>
+      </button>
+      <button
+        id="mark-as-unread"
+        *ngIf="b.finished"
+        mat-icon-button
+        color="success"
+        [attr.title]="'Mark' + b.title + ' as unread.'"
+        [attr.aria-label]="'Mark' + b.title + ' as unread.'"
+        (click)="markAsUnread(b)"
+      >
+        <mat-icon>check_circle</mat-icon>
       </button>
     </div>
   </div>
