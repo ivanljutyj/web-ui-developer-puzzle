@@ -27,7 +27,7 @@ export class ReadingListController {
   }
 
   @Put('/reading-list/:id/unfinished')
-  async markasUnead(@Param() params) {
+  async markasUnread(@Param() params) {
     return await this.readingList.unFinishBook(params.id);
   }
 }
